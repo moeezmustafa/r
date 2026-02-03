@@ -1,225 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>For Rania ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<title>For Rania ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', system-ui, sans-serif;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: radial-gradient(circle at top, #ffd6e0, #ff8fa3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #ffd6e0, #ff8fa3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
 
-    /* Falling hearts */
-    .heart {
-      position: fixed;
-      top: -10px;
-      pointer-events: none;
-      animation: fall linear forwards;
-      opacity: 0.85;
-    }
+/* Hearts */
+.heart {
+  position: fixed;
+  top: -10px;
+  pointer-events: none;
+  animation: fall linear forwards;
+  opacity: 0.85;
+}
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
 
-    @keyframes fall {
-      to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
+/* Main GIF */
+.main-gif {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+.main-gif img {
+  width: 200px;
+  border-radius: 18px;
+}
 
-    /* Main GIF */
-    .main-gif {
-      position: absolute;
-      top: 20px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      pointer-events: none;
-      z-index: 1;
-    }
+/* Card */
+.card {
+  background: white;
+  width: min(94%, 520px);
+  padding: 52px 36px;
+  border-radius: 30px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.25);
+  text-align: center;
+  position: relative;
+  z-index: 5;
+}
 
-    .main-gif img {
-      width: 200px;
-      max-width: 70%;
-      border-radius: 18px;
-      animation: floatSoft 3s ease-in-out infinite;
-    }
+.emoji {
+  font-size: 56px;
+  margin-bottom: 12px;
+}
 
-    @keyframes floatSoft {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
+h1 {
+  font-size: 28px;
+  margin-bottom: 32px;
+  color: #333;
+}
 
-    /* Card */
-    .card {
-      background: white;
-      width: min(94%, 520px);
-      padding: 52px 36px;
-      border-radius: 30px;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.25);
-      text-align: center;
-      position: relative;
-      z-index: 10;
-    }
+/* Button area */
+.buttons {
+  position: relative;
+  width: 100%;
+  height: 120px;
+}
 
-    .emoji {
-      font-size: 56px;
-      margin-bottom: 12px;
-    }
+button {
+  padding: 16px 34px;
+  font-size: 18px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+}
 
-    h1 {
-      font-size: 28px;
-      margin-bottom: 30px;
-      color: #333;
-    }
+#yes {
+  background: linear-gradient(135deg, #ff4d6d, #ff758f);
+  color: white;
+  box-shadow: 0 12px 26px rgba(255,77,109,0.45);
+}
 
-    /* Button area = movement boundary */
-    .buttons {
-      position: relative;
-      width: 100%;
-      height: 110px;
-    }
+#no {
+  position: absolute;
+  background: #f2f2f2;
+  color: #555;
+  transition: left 0.4s ease, top 0.4s ease;
+  pointer-events: none; /* 🔒 KEY FIX */
+}
 
-    button {
-      padding: 16px 34px;
-      font-size: 18px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      user-select: none;
-      touch-action: manipulation;
-    }
+/* Message */
+.message {
+  display: none;
+  margin-top: 28px;
+  font-size: 22px;
+  color: #ff4d6d;
+}
 
-    #yes {
-      background: linear-gradient(135deg, #ff4d6d, #ff758f);
-      color: white;
-      box-shadow: 0 12px 26px rgba(255,77,109,0.45);
-      position: relative;
-      z-index: 2;
-    }
-
-    #no {
-      background: #f2f2f2;
-      color: #555;
-      position: absolute;
-      left: 50%;
-      top: 55%;
-      transform: translate(-50%, -50%);
-      transition:
-        left 0.35s cubic-bezier(0.25, 1.4, 0.5, 1),
-        top 0.35s cubic-bezier(0.25, 1.4, 0.5, 1);
-    }
-
-    .message {
-      display: none;
-      margin-top: 28px;
-      font-size: 22px;
-      color: #ff4d6d;
-    }
-
-    #yesGif {
-      display: none;
-      width: 100%;
-      max-width: 300px;
-      margin: 24px auto 0;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-    }
-  </style>
+#yesGif {
+  display: none;
+  width: 100%;
+  max-width: 300px;
+  margin: 24px auto 0;
+  border-radius: 20px;
+}
+</style>
 </head>
+
 <body>
 
-  <div class="main-gif">
-    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHY0ZG1na3FuenZqZnRhYXNnZmtjaTJhaW41ZDZ6NXNucTYxZWo3diZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tk8cksLHlE7Gpo5lSI/giphy.gif">
+<div class="main-gif">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHY0ZG1na3FuenZqZnRhYXNnZmtjaTJhaW41ZDZ6NXNucTYxZWo3diZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tk8cksLHlE7Gpo5lSI/giphy.gif">
+</div>
+
+<div class="card">
+  <div class="emoji">💖</div>
+  <h1>Rania, will you be my Valentine?</h1>
+
+  <div class="buttons" id="zone">
+    <button id="yes">Yes 💕</button>
+    <button id="no">No 🙃</button>
   </div>
 
-  <div class="card">
-    <div class="emoji">💖</div>
-    <h1>Rania, will you be my Valentine?</h1>
-
-    <div class="buttons" id="buttonZone">
-      <button id="yes">Yes 💕</button>
-      <button id="no">No 🙃</button>
-    </div>
-
-    <div class="message" id="message">
-      I knew your heart would say yes 💞
-    </div>
-
-    <img id="yesGif"
-      src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHY0ZG1na3FuenZqZnRhYXNnZmtjaTJhaW41ZDZ6NXNucTYxZWo3diZlcD12MV9naWZzX3NlYXJjaCZjdD1n/D9j761FH8SYJLyW9WO/giphy.gif">
+  <div class="message" id="message">
+    I knew your heart would say yes 💞
   </div>
 
-  <script>
-    const noBtn = document.getElementById('no');
-    const yesBtn = document.getElementById('yes');
-    const zone = document.getElementById('buttonZone');
-    const message = document.getElementById('message');
-    const yesGif = document.getElementById('yesGif');
+  <img id="yesGif"
+    src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHY0ZG1na3FuenZqZnRhYXNnZmtjaTJhaW41ZDZ6NXNucTYxZWo3diZlcD12MV9naWZzX3NlYXJjaCZjdD1n/D9j761FH8SYJLyW9WO/giphy.gif">
+</div>
 
-    function moveNo() {
-      const zoneRect = zone.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
+<script>
+const noBtn = document.getElementById('no');
+const yesBtn = document.getElementById('yes');
+const zone = document.getElementById('zone');
+const message = document.getElementById('message');
+const yesGif = document.getElementById('yesGif');
 
-      const padding = 10;
-      const maxX = zoneRect.width - btnRect.width - padding;
-      const maxY = zoneRect.height - btnRect.height - padding;
+const isMobile = window.matchMedia("(pointer: coarse)").matches;
 
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+function moveNo() {
+  const zoneRect = zone.getBoundingClientRect();
+  const btnRect = noBtn.getBoundingClientRect();
+  const padding = 10;
 
-      noBtn.style.left = x + 'px';
-      noBtn.style.top = y + 'px';
-      noBtn.style.transform = 'none';
-    }
+  const x = Math.random() * (zoneRect.width - btnRect.width - padding);
+  const y = Math.random() * (zoneRect.height - btnRect.height - padding);
 
-    // Desktop
-    noBtn.addEventListener('mouseenter', moveNo);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
 
-    // Mobile: finger proximity
-    zone.addEventListener('touchmove', moveNo, { passive: true });
+/* Initial position */
+moveNo();
 
-    yesBtn.addEventListener('click', () => {
-      yesBtn.style.display = 'none';
-      noBtn.style.display = 'none';
-      message.style.display = 'block';
-      yesGif.style.display = 'block';
+/* Desktop: hover chase */
+if (!isMobile) {
+  noBtn.style.pointerEvents = "auto";
+  noBtn.addEventListener("mouseenter", moveNo);
+}
 
-      const subject = encodeURIComponent("She said YES ❤️");
-      const body = encodeURIComponent(
-        "Hi Moeez,\n\nYes. 💕\n\nHappy Valentine’s Day.\n\n— Rania 💖"
-      );
+/* Mobile: smooth autonomous movement */
+if (isMobile) {
+  setInterval(moveNo, 900); // predictable + playful
+}
 
-      setTimeout(() => {
-        window.location.href =
-          `mailto:mr.moeezmustafa@gmail.com?subject=${subject}&body=${body}`;
-      }, 2500);
-    });
+/* YES action */
+yesBtn.addEventListener("click", () => {
+  yesBtn.style.display = "none";
+  noBtn.style.display = "none";
+  message.style.display = "block";
+  yesGif.style.display = "block";
 
-    // Hearts rain
-    function heartRain() {
-      const h = document.createElement('div');
-      h.className = 'heart';
-      h.innerText = Math.random() > 0.5 ? '💖' : '❤️';
-      h.style.left = Math.random() * 100 + 'vw';
-      h.style.fontSize = 14 + Math.random() * 26 + 'px';
-      h.style.animationDuration = 3 + Math.random() * 3 + 's';
-      document.body.appendChild(h);
-      setTimeout(() => h.remove(), 6000);
-    }
+  const subject = encodeURIComponent("She said YES ❤️");
+  const body = encodeURIComponent(
+    "Hi Moeez,\n\nYes. 💕\n\nHappy Valentine’s Day.\n\n— Rania 💖"
+  );
 
-    setInterval(heartRain, 260);
-  </script>
+  setTimeout(() => {
+    window.location.href =
+      `mailto:mr.moeezmustafa@gmail.com?subject=${subject}&body=${body}`;
+  }, 2500);
+});
+
+/* Hearts rain */
+function heartRain() {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerText = Math.random() > 0.5 ? "💖" : "❤️";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.fontSize = 14 + Math.random() * 26 + "px";
+  h.style.animationDuration = 3 + Math.random() * 3 + "s";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 6000);
+}
+setInterval(heartRain, 280);
+</script>
 
 </body>
 </html>
